@@ -3,6 +3,8 @@
 //let DateTime = luxon.DateTime;
 luxon.Settings.defaultLocale = "sv-se";
 
+let safe = DOMPurify.sanitize;
+
 let quickValue = (id, value) => {
     document.getElementById(id).value = value;
     calculateResult();
@@ -140,6 +142,7 @@ let calculateResult = (no=0) => {
         document.getElementById("r_goalTime").innerHTML = dateTimeISOTimeFormat(goalTime);
 
         saveSettings();
+        updateShareData();
 
     } else {
         console.log("Could not update result");
@@ -180,12 +183,50 @@ let populateValues = (data) => {
 }
 
 
-//let safeEncode = (decoded) => {return LZString.compressToEncodedURIComponent(safe(decoded))};
-//let safeDecode = (encoded) => {return safe(LZString.decompressFromEncodedURIComponent(encoded))};
-let shareResult = () => {
+let safeEncode = (decoded) => {return LZString.compressToEncodedURIComponent(safe(decoded))};
+let safeDecode = (encoded) => {return safe(LZString.decompressFromEncodedURIComponent(encoded))};
+let _getEncodedData = () => {
     let data = JSON.stringify(_getData());
-
+    let encoded = safeEncode(data);
+    return encoded;
 }
+let shareResult = () => {
+    let encoded = _getEncodedData();
+    let shareLink = _createShareLink(encoded);
+    _copyToClipboard(shareLink);
+}
+let parseSharedData = (data) => {
+    data = safeDecode(data);
+    data = JSON.parse(data);
+    //console.debug("Shared data parsed", data);
+    return data;
+}
+let _createShareLink = (data) => {
+    let href = document.location.href;
+    href = href.substring(0, href.lastIndexOf('#'));
+    console.log("Link base", href, document.location);
+    return href + "#s/" + data; //shareResult();
+}
+let updateShareData = () => {
+    let data = _getData();
+    //let href = document.location;
+    //href = href.substring(0, href.lastIndexOf('#'));
+    document.getElementById("shareLink").href = _createShareLink(data); //href + "#s/" + shareResult();
+}
+let _copyToClipboard = (data) => {
+    var copyText = document.getElementById("shareDataHolder");
+    copyText.value = data;
+  
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /* For mobile devices */
+  
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+  
+    /* Alert the copied text */
+    console.log("Copied the text: " + copyText.value);
+};
 
 let forms = {
     "toArena": {

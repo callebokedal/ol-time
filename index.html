@@ -100,13 +100,17 @@
                 <p class="mb-1"><small style="display:inline-block;" class="w-50">Beräknad målgång:</small><small id="r_goalTime">-</small></p>
             </div>
             <!--<button type="button" class="mb-4 btn btn-secondary" onclick="calculateResult();">Beräkna</button>-->
-            <!--<button type="button" class="mb-4 btn btn-secondary" onclick="shareResult();">Dela...</button>-->
+            <button type="button" class="mb-4 btn btn-secondary" onclick="shareResult();">Dela...</button>
+            <textarea id="shareDataHolder" class="form-control d-none" rows=1></textarea>
+            <a href="#" id="shareLink" target="_blank" class="text-light ms-4 ">Länk för att kopiera</a>
         </div>
     </script> 
     <!-- 
     <script type="html/template"></script> 
     -->
     <script src="lib/js/routie.min.js"></script>
+    <script src="lib/js/purify.min.js"></script>
+	<script src="lib/js/lz-string.js"></script>
     <script src="lib/js/luxon.min.js"></script>
     <script src="lib/js/lodash.min.js"></script>
     <script src="js/helpers.js"></script>

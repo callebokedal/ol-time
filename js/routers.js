@@ -1,5 +1,5 @@
 routie({
-	'': function() {
+	'': () => {
 		console.log("start");
 
 		renderTemplate('tpl_form', '#main', forms);
@@ -22,7 +22,22 @@ routie({
 		// Update result on any change
 		document.getElementById("timeForm").addEventListener("change", (event) => { calculateResult();}, false);
 	},
-	'*': function() {
+	's/:data': (data) => {
+		// Load (s)hared data
+		//console.log("Load shared data: ", document.location.hash, data);
+		data = parseSharedData(data);
+
+		renderTemplate('tpl_form', '#main', forms);
+		renderTemplate('tpl_result', '#result', {});
+		populateValues(data);
+		console.log("Imported and populated data", data);
+		calculateResult();
+		//document.location = "#";
+		// Go to start
+		routie("");
+	},
+	'*': () => {
 		console.log("Default route: ", document.location.hash);
+		routie("");
 	}
 });
