@@ -101,23 +101,29 @@ let calculateResult = (no=0) => {
         let distanceArena = getInt(getValue("distanceArena")); // meters
         let speedArena = mmssToDecimal(getValue("speedArena")); // min/km in mm:ss => Decimal 8,5
         // Distance to km and multiply with speed in min/km => number of minutes
-        let walkToArenaTime = ((distanceArena / 1000) * speedArena);
+        let walkToArenaTime = Math.ceil(((distanceArena / 1000) * speedArena));
+        //console.log(walkToArenaTime);
         let minutesToArena = (travelTime + walkToArenaTime);
         document.getElementById("r_toArena").innerHTML = minutesToArena + " min ("+travelTime+" min + "+walkToArenaTime+" min)";
 
         // Time to start = distance * velocity + "gå-fram-tid" + extra time
         let startTime = ttmmToDate(getValue("startTime")); // ttmm => DateTime
+        let arenaTime = getInt(getValue("arenaTime")); // minutes
         let distanceStart = getInt(getValue("distanceStart")); // meters
         let speedStart = mmssToDecimal(getValue("speedStart")); // min/km in mm:ss => Decimal 8,5
         let olTime = getInt(getValue("olTime")); // minutes
         let extraTime = getInt(getValue("extraTime")); // minutes
-        let walkToStartTime = ((distanceStart / 1000) * speedStart);
+        let walkToStartTime = Math.ceil(((distanceStart / 1000) * speedStart));
+        //console.log("walkToStartTime", walkToStartTime);
         let minutesToStart = (olTime + extraTime + walkToStartTime);
         document.getElementById("r_arenaToStart").innerHTML = minutesToStart + " min (från Arena!)";
 
+        // Time at arena
+        document.getElementById("r_atArena").innerHTML = arenaTime + " min";
+
         // Travel at latest
-        let travelLatest = startTime.minus({minutes: (minutesToArena + minutesToStart)});
-        document.getElementById("r_travelLatest").innerHTML = "<strong>" + dateTimeISOTimeFormat(travelLatest) + "</strong> ("+dateTimeISOTimeFormat(startTime)+" - "+minutesToArena+" min - " + minutesToStart+" min)";
+        let travelLatest = startTime.minus({minutes: (minutesToArena + arenaTime + minutesToStart)});
+        document.getElementById("r_travelLatest").innerHTML = "<strong>" + dateTimeISOTimeFormat(travelLatest) + "</strong> ("+dateTimeISOTimeFormat(startTime)+" - "+minutesToArena+" - "+arenaTime+" - " + minutesToStart+" min)";
 
         // Walk at latest
         let walkLatest = startTime.minus({minutes: (minutesToStart)});
@@ -126,7 +132,7 @@ let calculateResult = (no=0) => {
         // Run time
         let distanceTrack = getInt(getValue("distanceTrack")); // meters
         let speedRun = mmssToDecimal(getValue("speedRun")); // min/km in mm:ss => Decimal 8,5
-        let runTime = ((distanceTrack / 1000) * speedRun); 
+        let runTime = Math.ceil(((distanceTrack / 1000) * speedRun)); 
         document.getElementById("r_runTime").innerHTML = runTime + " min";
         //console.log(typeof(startTime));
         let goalTime = startTime.plus({minutes: runTime});
@@ -140,7 +146,7 @@ let calculateResult = (no=0) => {
 
 let forms = {
     "toArena": {
-        "title": "Till arena",
+        "title": "Tid till arena",
         "color": "border-warning",
         "icon": "bicycle", // car-front-fill
         "items": [
@@ -192,7 +198,7 @@ let forms = {
         ]
     },
     "toStart": {
-        "title": "Till start",
+        "title": "Tid till start",
         "color": "border-danger",
         "icon": "escape", // hourglass-split, smartwatch
         "items": [
@@ -202,6 +208,19 @@ let forms = {
                 //"description": "Tilldelad starttid, eller planerad",
                 "format": "tt:mm",
                 "default": "09:30"
+            },
+            {
+                "id": "arenaTime",
+                "label": "Tid på arena",
+                "description": "Tid för att prata, knyta skorna etc.",
+                "format": "m",
+                "default": 20,
+                "quick": [
+                    {"0 min": 0},
+                    {"15 min": 15},
+                    {"30 min": 30},
+                    {"45 min": 45}
+                ]
             },
             {
                 "id": "distanceStart",
