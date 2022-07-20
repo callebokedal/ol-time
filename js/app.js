@@ -194,6 +194,10 @@ let shareResult = () => {
     let encoded = _getEncodedData();
     let shareLink = _createShareLink(encoded);
     _copyToClipboard(shareLink);
+    document.getElementById("shareDataCopied").classList.remove("d-none");
+    setTimeout(() => {
+        document.getElementById("shareDataCopied").classList.add("d-none");
+    }, 5000);
 }
 let parseSharedData = (data) => {
     data = safeDecode(data);
@@ -215,6 +219,7 @@ let updateShareData = () => {
 }
 let _copyToClipboard = (data) => {
     var copyText = document.getElementById("shareDataHolder");
+    copyText.classList.remove("d-none");
     copyText.value = data;
   
     /* Select the text field */
@@ -223,6 +228,7 @@ let _copyToClipboard = (data) => {
   
     /* Copy the text inside the text field */
     document.execCommand("copy");
+    copyText.classList.add("d-none");
   
     /* Alert the copied text */
     console.log("Copied the text: " + copyText.value);
