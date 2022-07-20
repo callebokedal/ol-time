@@ -207,7 +207,9 @@ let parseSharedData = (data) => {
 }
 let _createShareLink = (data) => {
     let href = document.location.href;
-    href = href.substring(0, href.lastIndexOf('#'));
+    if(href.indexOf("#") > 0) {
+        href = href.substring(0, href.lastIndexOf('#'));
+    }
     console.log("Link base", href, document.location);
     return href + "#s/" + data; //shareResult();
 }
