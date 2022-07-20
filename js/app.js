@@ -138,10 +138,52 @@ let calculateResult = (no=0) => {
         let goalTime = startTime.plus({minutes: runTime});
         document.getElementById("r_goalTime").innerHTML = dateTimeISOTimeFormat(goalTime);
 
+        saveSettings();
+
     } else {
         console.log("Could not update result");
         //setTimeout(calculateResult, 50, 1);
     }
+}
+
+let _getData = () => {
+    let data = {};
+    _.each(forms, (sec, idx, list) => {
+        _.each(sec.items, (item, idx, list) => {
+            data[item.id] = document.getElementById(item.id).value;
+        });
+    });
+    return data;
+}
+
+const storageKey = "ol-time-data";
+let saveSettings = () => {
+    let data = _getData();
+    localStorage.setItem(storageKey, JSON.stringify(data));
+    //console.debug("Saved data", data);
+}
+let loadSettings = () => {
+    let data = JSON.parse(localStorage.getItem(storageKey));
+    //console.debug("Loaded data", data);
+    return data;
+}
+let settingsExists = () => {
+    return !(localStorage.getItem(storageKey) === null);
+}
+let populateValues = (data) => {
+    console.log(data);
+    _.each(_.keys(data), (key, idx, list) => {
+        document.getElementById(key).value = data[key];
+        //console.log(key, data[key]);
+    });
+}
+
+
+//let safeEncode = (decoded) => {return LZString.compressToEncodedURIComponent(safe(decoded))};
+//let safeDecode = (encoded) => {return safe(LZString.decompressFromEncodedURIComponent(encoded))};
+let shareResult = () => {
+    let data = JSON.stringify(_getData());
+
 }
 
 let forms = {

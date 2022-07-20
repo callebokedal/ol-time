@@ -4,6 +4,12 @@ routie({
 
 		renderTemplate('tpl_form', '#main', forms);
 		renderTemplate('tpl_result', '#result', {});
+
+		if(settingsExists()) {
+			let data = loadSettings();
+			populateValues(data);
+		}
+
 		calculateResult();
 
 		// Init all popovers
