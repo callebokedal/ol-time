@@ -7,6 +7,7 @@ routie({
 
 		if(settingsExists()) {
 			let data = loadSettings();
+			console.debug("Settings loaded", data);
 			populateValues(data);
 		}
 

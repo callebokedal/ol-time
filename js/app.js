@@ -91,6 +91,7 @@ let dateTimeISOTimeFormat = (dt) => {
 let calculateResult = (no=0) => {
     //console.log("no", no);
     if (_.isElement(document.getElementById("r_now"))) {
+        console.debug("Calculating result");
         let now = luxon.DateTime.now();
         // Time now
         //document.getElementById("r_now").innerHTML = now.toLocaleString({ hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
@@ -160,11 +161,11 @@ const storageKey = "ol-time-data";
 let saveSettings = () => {
     let data = _getData();
     localStorage.setItem(storageKey, JSON.stringify(data));
-    //console.debug("Saved data", data);
+    console.debug("Saved data", data);
 }
 let loadSettings = () => {
     let data = JSON.parse(localStorage.getItem(storageKey));
-    //console.debug("Loaded data", data);
+    console.debug("Loaded data", data);
     return data;
 }
 let settingsExists = () => {
