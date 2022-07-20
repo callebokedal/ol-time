@@ -20,10 +20,7 @@ routie({
 		});
 
 		// Update result on any change
-		document.getElementById("timeForm").addEventListener("change",
-        	function(event) {
-				calculateResult();
-        	}, false);
+		document.getElementById("timeForm").addEventListener("change", (event) => { calculateResult();}, false);
 	},
 	'*': function() {
 		console.log("Default route: ", document.location.hash);
