@@ -194,10 +194,11 @@ let shareResult = () => {
     let encoded = _getEncodedData();
     let shareLink = _createShareLink(encoded);
     _copyToClipboard(shareLink);
+    document.getElementById("linkToShare").innerHTML = "<br><br>"+shareLink;
     document.getElementById("shareDataCopied").classList.remove("d-none");
     setTimeout(() => {
         document.getElementById("shareDataCopied").classList.add("d-none");
-    }, 5000);
+    }, 8000);
 }
 let parseSharedData = (data) => {
     data = safeDecode(data);
