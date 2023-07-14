@@ -245,7 +245,7 @@ let forms = {
         "items": [
             {
                 "id": "travelTime",
-                "label": "Restid till parkering",
+                "label": "Restid till parkering/hållplats",
                 "format": "min",
                 "default": "30",
                 "quick": [
@@ -254,12 +254,17 @@ let forms = {
                     {"45 min": 45},
                     {"60 min": 60},
                     {"90 min": 90}
-                ]
+                ],
+                "oringen": [
+                    {"Etapp 1-2, Duved tåg+buss, 20+12 min": 32},
+                    {"Etapp 3, Duved tåg+buss, 30+10 min": 40},
+                    {"Etapp 4-5, Duved buss, 20 min": 20}
+                ],
+                "odescription": "Etapp 1-2 Trillevallen 29+9 km<br>Etapp 3 Järpen 33 km<br>Etapp 4-5 Ånn 22 km"
             },
             {
                 "id": "distanceArena",
-                "label": "Avstånd parkering till arena",
-                //"description": "Parkering till arena",
+                "label": "Avstånd parkering/hållplats till arena",
                 "format": "m",
                 "default": 1000,
                 "quick": [
@@ -267,7 +272,13 @@ let forms = {
                     {"500 m": 500},
                     {"1500 m": 1500},
                     {"2000 m": 2000}
+                ],
+                "oringen": [
+                    {"Etapp 1-2, 1300 m": 1300},
+                    {"Etapp 3, 850 m": 850},
+                    {"Etapp 4-5, 570 m": 570}
                 ]
+
             },
             {
                 "id": "speedArena",
@@ -300,7 +311,15 @@ let forms = {
                 "label": "Starttid",
                 //"description": "Tilldelad starttid, eller planerad",
                 "format": "tt:mm",
-                "default": "09:30"
+                "default": "09:30",
+                "quick": [
+                    {"11:00": "11:00"},
+                    {"11:30": "11:30"},
+                    {"12:00": "12:00"},
+                    {"11:00": "11:00"},
+                    {"11:00": "11:00"},
+                    {"11:00": "11:00"}
+                ]
             },
             {
                 "id": "arenaTime",
@@ -317,7 +336,7 @@ let forms = {
             },
             {
                 "id": "distanceStart",
-                "label": "Avstånd till start",
+                "label": "Avstånd arena till start",
                 //"description": "Arena till start",
                 "format": "m",
                 "default": 1000,
@@ -330,20 +349,10 @@ let forms = {
             {
                 "id": "speedStart",
                 "label": "Gång-/löptempo till start",
-                "description": "20:00 min/km = 3 km/t<br>12:00 min/km = 5 km/t (Normal)<br>08:00 min/km = 7,5 km/t (Rask)<br>06:00 min/km = 10 km/t (Jogg)",
+                "description": "20:00 min/km = 3 km/t (Sakta)<br>12:00 min/km = 5 km/t (Normal)<br>08:00 min/km = 7,5 km/t (Rask)<br>06:00 min/km = 10 km/t (Jogg)",
                 "format": "min/km [mm:ss]",
                 "default": "10:00",
-//                "quick": [
-//                    {"Gång 3,0": "3,0"},
-//                    {"Gång 5,0": "5,0"},
-//                    {"Gång 6,5": "6,5"},
-//                    {"Jogg 8,0": "8,0"}
-//                ],
                 "quick": [
-                    //{"Gång 20": "20:00"}, // 20 min/km =>   3 km/h
-                    //{"Gång 12": "12:00"}, // 12 min/km =>   5 km/h Normal 4-5
-                    //{"Gång 8": "8:00"},   //  8 min/km => 7,5 km/h Rask promenad 5-6 km/h
-                    //{"Jogg 6": "6:00"}    //  6 min/km =>  10 km/h
                     {"20:00": "20:00"}, // 20 min/km =>   3 km/h
                     {"12:00": "12:00"}, // 12 min/km =>   5 km/h Normal 4-5
                     {"8:00": "8:00"},   //  8 min/km => 7,5 km/h Rask promenad 5-6 km/h
