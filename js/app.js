@@ -254,13 +254,7 @@ let forms = {
                     {"45 min": 45},
                     {"60 min": 60},
                     {"90 min": 90}
-                ],
-                "oringen": [
-                    {"Etapp 1-2, Duved tåg+buss, 20+12 min": 32},
-                    {"Etapp 3, Duved tåg+buss, 30+10 min": 40},
-                    {"Etapp 4-5, Duved buss, 20 min": 20}
-                ],
-                "odescription": "Etapp 1-2 Trillevallen 29+9 km<br>Etapp 3 Järpen 33 km<br>Etapp 4-5 Ånn 22 km"
+                ]
             },
             {
                 "id": "distanceArena",
@@ -272,13 +266,7 @@ let forms = {
                     {"500 m": 500},
                     {"1500 m": 1500},
                     {"2000 m": 2000}
-                ],
-                "oringen": [
-                    {"Etapp 1-2, 1300 m": 1300},
-                    {"Etapp 3, 850 m": 850},
-                    {"Etapp 4-5, 570 m": 570}
                 ]
-
             },
             {
                 "id": "speedArena",
@@ -337,7 +325,6 @@ let forms = {
             {
                 "id": "distanceStart",
                 "label": "Avstånd arena till start",
-                //"description": "Arena till start",
                 "format": "m",
                 "default": 1000,
                 "quick": [
